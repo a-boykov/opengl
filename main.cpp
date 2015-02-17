@@ -1,11 +1,11 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
-//#include <GL/glu.h>
-//#include <GL/gl.h>
 #include <math.h>
 #include <time.h>
 #include <FreeImage.h>
 #include "Shader.h"
+//#include <GL/glu.h>
+//#include <GL/gl.h>
 //#include <iostream>
 
 const int SCREEN_WIDTH = 1440;
@@ -83,18 +83,18 @@ void TimeEvent(int )
 
 void init(void)
 {
-    image1 = loadTexture("pick_01.png");
-    image2 = loadTexture("pick_02.png");
-    image3 = loadTexture("mask006.png");
-    background = loadTexture("screen.png");
-    shader1.InitializeProgram("glow.vert","glow.frag", true);
+    image1 = loadTexture("data/pick_01.png");
+    image2 = loadTexture("data/pick_02.png");
+    image3 = loadTexture("data/mask005.png");
+    background = loadTexture("data/screen.png");
+    shader1.InitializeProgram("glsl/glow.vert","glsl/glow.frag", true);
     shader1.Use(true);
     shader1.SetWidth(2);
     shader1.SetHeight(1.0);
 
-    shader2.InitializeProgram("color.vert","color.frag", false);
+    shader2.InitializeProgram("glsl/color.vert","glsl/color.frag", false);
 
-    shader3.InitializeProgram("grayscale.vert","grayscale.frag");
+    shader3.InitializeProgram("glsl/grayscale.vert","glsl/grayscale.frag");
 
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
     glEnable(GL_BLEND);
