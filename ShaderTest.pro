@@ -11,11 +11,24 @@ HEADERS += \
     Shader.h
 
 DISTFILES += \
-    ../build-ShaderTest-Desktop_Qt_5_3_GCC_32bit-Debug/colortopbottom.frag \
-    ../build-ShaderTest-Desktop_Qt_5_3_GCC_32bit-Debug/colortopbottom.vert \
-    ../build-ShaderTest-Desktop_Qt_5_3_GCC_32bit-Debug/grayscale.frag \
-    ../build-ShaderTest-Desktop_Qt_5_3_GCC_32bit-Debug/grayscale.vert \
-    ../build-ShaderTest-Desktop_Qt_5_3_GCC_32bit-Debug/color.frag \
-    ../build-ShaderTest-Desktop_Qt_5_3_GCC_32bit-Debug/glow.frag \
-    ../build-ShaderTest-Desktop_Qt_5_3_GCC_32bit-Debug/color.vert \
-    ../build-ShaderTest-Desktop_Qt_5_3_GCC_32bit-Debug/glow.vert
+    glsl/colortopbottom.frag \
+    glsl/colortopbottom.vert \
+    glsl/grayscale.frag \
+    glsl/grayscale.vert \
+    glsl/color.frag \
+    glsl/glow.frag \
+    glsl/color.vert \
+    glsl/glow.vert \
+    data/mask001.png \
+    data/mask002.png \
+    data/mask003.png \
+    data/mask004.png \
+    data/mask005.png \
+    data/mask006.png \
+    data/pick_01.png \
+    data/pick_02.png \
+    data/screen.png \
+    data/texture1.png \
+    data/texture2.png \
+    data/texture2old.png \
+    data/texture3.png
