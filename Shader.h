@@ -20,6 +20,7 @@ public:
     ~Shader();
 
     void InitializeProgram(const std::string &strVertexShader, const std::string &strFragmentShader);
+    void InitializeProgramWithArray(const std::string &strVertexShader, const std::string &strFragmentShader);
     void InitializeProgram(const std::string &strVertexShader, const std::string &strFragmentShader, bool special);
 
     GLuint CreateShader(GLenum eShaderType, const std::string &strShaderFile);

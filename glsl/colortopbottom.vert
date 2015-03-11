@@ -1,10 +1,9 @@
 #version 330
 
-uniform float vec4 position;
+layout (location = 0) in vec4 position;
 
-void main(void)
+void main()
 {
-    gl_Position = position;
-    gl_TexCoord[0] = gl_MultiTexCoord0;
+	gl_TexCoord[0] = gl_MultiTexCoord0;
+	gl_Position = ftransform();
 }
-

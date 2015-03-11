@@ -21,9 +21,11 @@ GLenum image1;
 GLenum image2;
 GLenum image3;
 GLenum background;
+
 Shader shader1;
 Shader shader2;
 Shader shader3;
+Shader shColorTopBottom;
 
 void TimeEvent(int te);
 void init(void);
@@ -66,8 +68,8 @@ void TimeEvent(int )
     shader1.SetTime(time1);
     shader2.Use(true);
     shader2.SetTime(time2);
-    shader3.Use(true);
-    shader3.SetTime(time2);
+    //shader3.Use(true);
+    //shader3.SetTime(time2);
     glutTimerFunc( 10, TimeEvent, 1);
 
     time1 += delta1;
@@ -94,7 +96,13 @@ void init(void)
 
     shader2.InitializeProgram("glsl/color.vert","glsl/color.frag", false);
 
-    shader3.InitializeProgram("glsl/grayscale.vert","glsl/grayscale.frag");
+    //shader3.InitializeProgram("glsl/grayscale.vert","glsl/grayscale.frag");
+
+    //shColorTopBottom.InitializeProgram("glsl/colortopbottom.vert", "glsl/colortopbottom.frag");
+
+    // Smooth Color GLSL BEGIN
+    //shSmoothColor.InitializeProgram("glsl/smoothcolor.vert", "glsl/smoothcolor.frag");
+    // Smooth Color GLSL END
 
     glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
     glEnable(GL_BLEND);
@@ -131,10 +139,12 @@ void display(void)
 
   shader1.Use(false);
   shader2.Use(false);
-  shader3.Use(false);
+  //shader3.Use(false);
+  //shColorTopBottom.Use(false);
 
 
-  shader3.Use(true);
+  //shader3.Use(true);
+  //shColorTopBottom.Use(true);
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, background);
@@ -153,12 +163,13 @@ void display(void)
   glVertex3f(0, SCREEN_HEIGHT, 0);
 
   glEnd();
-  shader3.Use(false);
+  //shader3.Use(false);
+  //shColorTopBottom.Use(false);
+
 
 
   glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, 0);
-
 
   shader1.Use(true);
 

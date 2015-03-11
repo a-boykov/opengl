@@ -11,6 +11,21 @@
 //#include <exception>
 //#include <stdexcept>
 
+GLuint vertexBufferObject;
+GLuint vao;
+const float vertexData[] =
+{
+//position
+  0.0f, 0.0f, 0.0f, 1.0f,
+  1.0f, 0.0f, 0.0f, 1.0f,
+  1.0f, 1.0f, 0.0f, 1.0f,
+  0.0f, 1.0f, 0.0f, 1.0f,
+//color
+  1.0f, 0.0f, 0.0f, 1.0f,
+  0.0f, 1.0f, 0.0f, 1.0f,
+  0.0f, 0.0f, 1.0f, 1.0f,
+  1.0f, 1.0f, 1.0f, 1.0f
+};
 
 Shader::Shader()
 {
@@ -34,9 +49,25 @@ void Shader::InitializeProgram(const std::string &strVertexShader, const std::st
     std::for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 
     Use(true);
-    time = glGetUniformLocation(program, "time");
+      time = glGetUniformLocation(program, "time");
     Use(false);
 }
+
+//void Shader::InitializeProgramWithArray(const std::string &strVertexShader, const std::string &strFragmentShader)
+//{
+//    std::vector<GLuint> shaderList;
+
+//    shaderList.push_back(CreateShader(GL_VERTEX_SHADER, strVertexShader));
+//    shaderList.push_back(CreateShader(GL_FRAGMENT_SHADER, strFragmentShader));
+
+//    program = CreateProgram(shaderList);
+
+//    std::for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
+
+//    Use(true);
+//    glBindBuff
+
+//}
 
 void Shader::InitializeProgram(const std::string &strVertexShader, const std::string &strFragmentShader, bool special)
 {

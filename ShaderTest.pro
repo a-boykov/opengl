@@ -11,6 +11,8 @@ HEADERS += \
     Shader.h
 
 DISTFILES += \
+    glsl/smoothcolor.vert \
+    glsl/smoothcolor.frag \
     glsl/colortopbottom.frag \
     glsl/colortopbottom.vert \
     glsl/grayscale.frag \
@@ -32,3 +34,4 @@ DISTFILES += \
     data/texture2.png \
     data/texture2old.png \
     data/texture3.png
+
