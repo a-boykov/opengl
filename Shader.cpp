@@ -11,20 +11,6 @@
 //#include <exception>
 //#include <stdexcept>
 
-const float vertexData[] =
-{
-	//position
-	0.0f, 0.0f, 0.0f, 1.0f,
-	1.0f, 0.0f, 0.0f, 1.0f,
-	1.0f, 1.0f, 0.0f, 1.0f,
-	0.0f, 1.0f, 0.0f, 1.0f,
-	//color
-	1.0f, 0.0f, 0.0f, 1.0f,
-	0.0f, 1.0f, 0.0f, 1.0f,
-	0.0f, 0.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f, 1.0f
-};
-
 Shader::Shader()
 {
 }
@@ -46,8 +32,15 @@ void Shader::InitializeProgram(const std::string &strVertexShader, const std::st
 
 	std::for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 
+	offsetLocation = glGetUniformLocation(program, "offset");
+	frustumScaleUnif = glGetUniformLocation(program, "frustumScale");
+	zNearUnif = glGetUniformLocation(program, "zNear");
+	zFarUnif = glGetUniformLocation(program, "zFar");
+
 	Use(true);
-	time = glGetUniformLocation(program, "time");
+	glUniform1f(frustumScaleUnif, 1.0f);
+	glUniform1f(zNearUnif, 1.0f);
+	glUniform1f(zFarUnif, 3.0f);
 	Use(false);
 }
 
@@ -223,6 +216,25 @@ void Shader::SetWidth(float var)
 void Shader::SetHeight(float var)
 {
 	glUniform1f(maskHeight, var);
+}
+GLenum Shader::GetOffset()
+{
+	return offsetLocation;
+}
+
+GLuint Shader::GetFrustumScale()
+{
+	return frustumScaleUnif;
+}
+
+GLuint Shader::GetZFar()
+{
+	return zFarUnif;
+}
+
+GLuint Shader::GetZNear()
+{
+	return zNearUnif;
 }
 
 const char* Shader::ReadFile(const char *file)

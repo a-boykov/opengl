@@ -1,11 +1,12 @@
-attribute vec4 qt_Vertex;
-attribute vec4 qt_MultiTexCoord0;
-uniform mat4 qt_ModelViewProjectionMatrix;
-varying vec4 qt_TexCoord0;
+#version 330
+
+layout(location=0) in vec4 position;
+
+uniform vec2 offset;
 
 void main(void)
 {
-    gl_Position = qt_ModelViewProjectionMatrix * qt_Vertex;
-    qt_TexCoord0 = qt_MultiTexCoord0;
+	vec4 totalOffset  = vec4(offset.x, offset.y, 0.0, 0.0);
+	gl_Position = position + totalOffset;
 }
 

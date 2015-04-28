@@ -30,15 +30,111 @@ Shader shader2;
 Shader shader3;
 Shader shColorTopBottom;
 Shader shMove;
+Shader shMoveBetter;
 
 const float vertexPositions[] = {
-	0.25f, 0.25f, 0.0f, 1.0f,
-	0.25f, -0.25f, 0.0f, 1.0f,
-	-0.25f, -0.25f, 0.0f, 1.0f,
+	0.25f,  0.25f, -1.25f, 1.0f,
+	0.25f, -0.25f, -1.25f, 1.0f,
+   -0.25f,  0.25f, -1.25f, 1.0f,
+
+	0.25f, -0.25f, -1.25f, 1.0f,
+   -0.25f, -0.25f, -1.25f, 1.0f,
+   -0.25f,  0.25f, -1.25f, 1.0f,
+
+	0.25f,  0.25f, -2.75f, 1.0f,
+   -0.25f,  0.25f, -2.75f, 1.0f,
+	0.25f, -0.25f, -2.75f, 1.0f,
+
+	0.25f, -0.25f, -2.75f, 1.0f,
+   -0.25f,  0.25f, -2.75f, 1.0f,
+   -0.25f, -0.25f, -2.75f, 1.0f,
+
+   -0.25f,  0.25f, -1.25f, 1.0f,
+   -0.25f, -0.25f, -1.25f, 1.0f,
+   -0.25f, -0.25f, -2.75f, 1.0f,
+
+   -0.25f,  0.25f, -1.25f, 1.0f,
+   -0.25f, -0.25f, -2.75f, 1.0f,
+   -0.25f,  0.25f, -2.75f, 1.0f,
+
+	0.25f,  0.25f, -1.25f, 1.0f,
+	0.25f, -0.25f, -2.75f, 1.0f,
+	0.25f, -0.25f, -1.25f, 1.0f,
+
+	0.25f,  0.25f, -1.25f, 1.0f,
+	0.25f,  0.25f, -2.75f, 1.0f,
+	0.25f, -0.25f, -2.75f, 1.0f,
+
+	0.25f,  0.25f, -2.75f, 1.0f,
+	0.25f,  0.25f, -1.25f, 1.0f,
+   -0.25f,  0.25f, -1.25f, 1.0f,
+
+	0.25f,  0.25f, -2.75f, 1.0f,
+   -0.25f,  0.25f, -1.25f, 1.0f,
+   -0.25f,  0.25f, -2.75f, 1.0f,
+
+	0.25f, -0.25f, -2.75f, 1.0f,
+   -0.25f, -0.25f, -1.25f, 1.0f,
+	0.25f, -0.25f, -1.25f, 1.0f,
+
+	0.25f, -0.25f, -2.75f, 1.0f,
+   -0.25f, -0.25f, -2.75f, 1.0f,
+   -0.25f, -0.25f, -1.25f, 1.0f,
+
+
+   0.0f, 0.0f, 1.0f, 1.0f,
+   0.0f, 0.0f, 1.0f, 1.0f,
+   0.0f, 0.0f, 1.0f, 1.0f,
+
+   0.0f, 0.0f, 1.0f, 1.0f,
+   0.0f, 0.0f, 1.0f, 1.0f,
+   0.0f, 0.0f, 1.0f, 1.0f,
+
+   0.8f, 0.8f, 0.8f, 1.0f,
+   0.8f, 0.8f, 0.8f, 1.0f,
+   0.8f, 0.8f, 0.8f, 1.0f,
+
+   0.8f, 0.8f, 0.8f, 1.0f,
+   0.8f, 0.8f, 0.8f, 1.0f,
+   0.8f, 0.8f, 0.8f, 1.0f,
+
+   0.0f, 1.0f, 0.0f, 1.0f,
+   0.0f, 1.0f, 0.0f, 1.0f,
+   0.0f, 1.0f, 0.0f, 1.0f,
+
+   0.0f, 1.0f, 0.0f, 1.0f,
+   0.0f, 1.0f, 0.0f, 1.0f,
+   0.0f, 1.0f, 0.0f, 1.0f,
+
+   0.5f, 0.5f, 0.0f, 1.0f,
+   0.5f, 0.5f, 0.0f, 1.0f,
+   0.5f, 0.5f, 0.0f, 1.0f,
+
+   0.5f, 0.5f, 0.0f, 1.0f,
+   0.5f, 0.5f, 0.0f, 1.0f,
+   0.5f, 0.5f, 0.0f, 1.0f,
+
+   1.0f, 0.0f, 0.0f, 1.0f,
+   1.0f, 0.0f, 0.0f, 1.0f,
+   1.0f, 0.0f, 0.0f, 1.0f,
+
+   1.0f, 0.0f, 0.0f, 1.0f,
+   1.0f, 0.0f, 0.0f, 1.0f,
+   1.0f, 0.0f, 0.0f, 1.0f,
+
+   0.0f, 1.0f, 1.0f, 1.0f,
+   0.0f, 1.0f, 1.0f, 1.0f,
+   0.0f, 1.0f, 1.0f, 1.0f,
+
+   0.0f, 1.0f, 1.0f, 1.0f,
+   0.0f, 1.0f, 1.0f, 1.0f,
+   0.0f, 1.0f, 1.0f, 1.0f,
+
 };
 
 GLuint positionBufferObject;
 GLuint vao;
+
 
 void TimeEvent(int te);
 void init(void);
@@ -55,7 +151,7 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize (1400, 900);
+	glutInitWindowSize (800, 600);
 	glutInitWindowPosition (10, 10);
 	glutCreateWindow (argv[0]);
 	glutSetWindowTitle("Shader test");
@@ -79,11 +175,12 @@ void TimeEvent(int )
 	static float delta1 = 0.005;
 	static float delta2 = 0.02;
 
+
 	glutPostRedisplay();
-	shader1.Use(true);
-	shader1.SetTime(time1);
-	shader2.Use(true);
-	shader2.SetTime(time2);
+//	shader1.Use(true);
+//	shader1.SetTime(time1);
+//	shader2.Use(true);
+//	shader2.SetTime(time2);
 	//shader3.Use(true);
 	//shader3.SetTime(time2);
 	glutTimerFunc( 10, TimeEvent, 1);
@@ -104,240 +201,85 @@ void InitializeVertexBuffer()
 	glGenBuffers(1, &positionBufferObject);
 
 	glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STREAM_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void init(void)
 {
-	image1 = loadTexture("data/pick_01.png");
-	image2 = loadTexture("data/pick_02.png");
-	image3 = loadTexture("data/mask005.png");
-	background = loadTexture("data/screen.png");
-	shader1.InitializeProgram("glsl/glow.vert","glsl/glow.frag", true);
-	shader1.Use(true);
-	shader1.SetWidth(2);
-	shader1.SetHeight(1.0);
+//	image1 = loadTexture("data/pick_01.png");
+//	image2 = loadTexture("data/pick_02.png");
+//	image3 = loadTexture("data/mask005.png");
+//	background = loadTexture("data/screen.png");
+	shader1.InitializeProgram("glsl/manualperspective.vert","glsl/smoothcolor.frag");
 
-	shader2.InitializeProgram("glsl/color.vert","glsl/color.frag", false);
-
-	//shader3.InitializeProgram("glsl/grayscale.vert","glsl/grayscale.frag");
-
-	//shColorTopBottom.InitializeProgram("glsl/colortopbottom.vert", "glsl/colortopbottom.frag");
-
-	// Smooth Color GLSL BEGIN
-	//shSmoothColor.InitializeProgram("glsl/smoothcolor.vert", "glsl/smoothcolor.frag");
-	// Smooth Color GLSL END
-
-	// GLSL Moving triangle BEGIN
-	shMove.InitializeProgram("glsl/standard.vert", "glsl/standard.frag");
 	InitializeVertexBuffer();
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 	// GLSL Moving triangle END
 
-	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
-	glEnable(GL_BLEND);
+//	glClearColor (0.0, 0.0, 0.0, 0.0);
+//	glShadeModel(GL_SMOOTH);
+//	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
 
-	glClearColor (0.0, 0.0, 0.0, 0.0);
-	glShadeModel (GL_SMOOTH);
-	glEnable(GL_DEPTH_TEST);
-
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(-SCREEN_WIDTH/2, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, -SCREEN_HEIGHT/2, 1.0, 30.0);
-}
-
-void ComputePositionOffsets(float &fXOffset, float &fYOffset)
-{
-	const float fLoopDuration = 5.0f;
-	const float fScale = 3.14159f * 2.0f / fLoopDuration;
-
-	float fElapsedTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
-
-	float fCurrTimeThroughLoop = fmodf(fElapsedTime, fLoopDuration);
-
-	fXOffset = cosf(fCurrTimeThroughLoop * fScale) * 0.5f;
-	fYOffset = sinf(fCurrTimeThroughLoop * fScale) * 0.5f;
-}
-
-void AdjustVertexData(float fXOffset, float fYOffset)
-{
-	std::vector<float> fNewData(ARRAY_COUNT(vertexPositions));
-	memcpy(&fNewData[0], vertexPositions, sizeof(vertexPositions));
-
-	for(int iVertex = 0; iVertex < ARRAY_COUNT(vertexPositions); iVertex += 4)
-	{
-		fNewData[iVertex] += fXOffset;
-		fNewData[iVertex + 1] += fYOffset;
-	}
-
-	glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertexPositions), &fNewData[0]);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+//	glMatrixMode(GL_PROJECTION);
+//	glLoadIdentity();
+//	glOrtho(-SCREEN_WIDTH/2, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, -SCREEN_HEIGHT/2, 1.0, 30.0);
 }
 
 void display(void)
 {
-	float fXOffset = 0.0f, fYOffset = 0.0f;
-	ComputePositionOffsets(fXOffset, fYOffset);
-	AdjustVertexData(fXOffset, fYOffset);
+	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
+	glClear (GL_COLOR_BUFFER_BIT/* | GL_DEPTH_BUFFER_BIT*/);
 
-	glEnable(GL_BLEND);
-	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//	glMatrixMode (GL_PROJECTION);
+//	glLoadIdentity();
+//	glOrtho(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, 1.0, 30.0);
 
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity();
-	//glOrtho(-SCREEN_WIDTH/2, SCREEN_WIDTH/2, SCREEN_HEIGHT/2, -SCREEN_HEIGHT/2, 1.0, 30.0);
-	glOrtho(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT, 1.0, 30.0);
+//	glMatrixMode(GL_MODELVIEW);
+//	glLoadIdentity();
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+//	// Put view state on screen
+//	glColor3f( 1.0, 1.0, 1.0);
 
-	// Put view state on screen
-	glColor3f( 1.0, 1.0, 1.0);
+//	glPushMatrix();
+//	glTranslatef(0,0,-10);
 
-	glPushMatrix();
-	glTranslatef(0,0,-10);
+	shader1.Use(true);
+	glUniform2f(shader1.GetOffset(), 0.5f, 0.5f);
 
-	shMove.Use(true);
+	size_t colorData = sizeof(vertexPositions) / 2;
 	glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)colorData);
 
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+
 	glDisableVertexAttribArray(0);
-	shMove.Use(false);
-
-//	glEnable(GL_TEXTURE_2D);
-
-//	shader1.Use(false);
-//	shader2.Use(false);
-//	//shader3.Use(false);
-//	//shColorTopBottom.Use(false);
+	glDisableVertexAttribArray(1);
 
 
-//	//shader3.Use(true);
-//	//shColorTopBottom.Use(true);
+	shader1.Use(false);
 
-//	glActiveTexture(GL_TEXTURE0);
-//	glBindTexture(GL_TEXTURE_2D, background);
-//	glBegin(GL_QUADS);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,0,0);
-//	glVertex3f(0,0,0);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,1,0);
-//	glVertex3f( SCREEN_WIDTH,0,0);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,1,1);
-//	glVertex3f( SCREEN_WIDTH, SCREEN_HEIGHT,0);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,0,1);
-//	glVertex3f(0, SCREEN_HEIGHT, 0);
-
-//	glEnd();
-//	//shader3.Use(false);
-//	//shColorTopBottom.Use(false);
-
-
-
-//	glActiveTexture(GL_TEXTURE0);
-//	glBindTexture(GL_TEXTURE_2D, 0);
-
-//	shader1.Use(true);
-
-//	glActiveTexture(GL_TEXTURE0);
-//	glBindTexture(GL_TEXTURE_2D, image1);
-
-//	glActiveTexture(GL_TEXTURE1);
-//	glBindTexture(GL_TEXTURE_2D, image2);
-
-//	glActiveTexture(GL_TEXTURE2);
-//	glBindTexture(GL_TEXTURE_2D, image3);
-
-//	glBegin(GL_QUADS);
-//	glMultiTexCoord2f(GL_TEXTURE0,0,0);
-//	glMultiTexCoord2f(GL_TEXTURE1,0,0);
-//	glMultiTexCoord2f(GL_TEXTURE2,0,0);
-//	glVertex3f(INSCRIPTION_X1,INSCRIPTION_Y1,1);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,1,0);
-//	glMultiTexCoord2f(GL_TEXTURE1,1,0);
-//	glMultiTexCoord2f(GL_TEXTURE2,1,0);
-//	glVertex3f(INSCRIPTION_X1+INSCRIPTION_WIDTH,INSCRIPTION_Y1,1);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,1,1);
-//	glMultiTexCoord2f(GL_TEXTURE1,1,1);
-//	glMultiTexCoord2f(GL_TEXTURE2,1,1);
-//	glVertex3f(INSCRIPTION_X1+INSCRIPTION_WIDTH,INSCRIPTION_Y1 + INSCRIPTION_HEIGHT,1);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,0,1);
-//	glMultiTexCoord2f(GL_TEXTURE1,0,1);
-//	glMultiTexCoord2f(GL_TEXTURE2,0,1);
-//	glVertex3f(INSCRIPTION_X1,INSCRIPTION_Y1 + INSCRIPTION_HEIGHT,1);
-
-//	glEnd();
-
-//	glActiveTexture(GL_TEXTURE0);
-//	glBindTexture(GL_TEXTURE_2D, 0);
-
-//	glActiveTexture(GL_TEXTURE1);
-//	glBindTexture(GL_TEXTURE_2D, 0);
-
-//	glActiveTexture(GL_TEXTURE2);
-//	glBindTexture(GL_TEXTURE_2D, 0);
-
-//	shader1.Use(false);
-//	shader2.Use(true);
-
-//	glActiveTexture(GL_TEXTURE0);
-//	glBindTexture(GL_TEXTURE_2D, image1);
-
-//	glActiveTexture(GL_TEXTURE1);
-//	glBindTexture(GL_TEXTURE_2D, image2);
-
-//	glBegin(GL_QUADS);
-//	glMultiTexCoord2f(GL_TEXTURE0,0,0);
-//	glMultiTexCoord2f(GL_TEXTURE1,0,0);
-//	glVertex3f(INSCRIPTION_X2,INSCRIPTION_Y2,1);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,1,0);
-//	glMultiTexCoord2f(GL_TEXTURE1,1,0);
-//	glVertex3f(INSCRIPTION_X2+INSCRIPTION_WIDTH,INSCRIPTION_Y2,1);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,1,1);
-//	glMultiTexCoord2f(GL_TEXTURE1,1,1);
-//	glVertex3f(INSCRIPTION_X2+INSCRIPTION_WIDTH,INSCRIPTION_Y2 + INSCRIPTION_HEIGHT,1);
-
-//	glMultiTexCoord2f(GL_TEXTURE0,0,1);
-//	glMultiTexCoord2f(GL_TEXTURE1,0,1);
-//	glVertex3f(INSCRIPTION_X2,INSCRIPTION_Y2 + INSCRIPTION_HEIGHT,1);
-
-//	glEnd();
-
-//	glActiveTexture(GL_TEXTURE0);
-//	glBindTexture(GL_TEXTURE_2D, 0);
-
-//	glActiveTexture(GL_TEXTURE1);
-//	glBindTexture(GL_TEXTURE_2D, 0);
-
-//	shader2.Use(false);
-
-	glPopMatrix();
-
-	glDisable(GL_BLEND);
+//	glPopMatrix();
+//	glDisable(GL_BLEND);
 
 
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void reshape (int w, int h)
 {
 	glViewport (0, 0, (GLsizei) w, (GLsizei) h);
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity ();
+//	glMatrixMode (GL_PROJECTION);
+//	glLoadIdentity ();
 }
 
 void keyboard (unsigned char key,int x,int y)

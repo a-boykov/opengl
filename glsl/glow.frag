@@ -19,21 +19,19 @@ void main()
 	float beginX = (1 + maskWidth)*time - maskWidth;
 	float endX = beginX + maskWidth;
 	if(beginX < 0)
-	    beginX = 0;
+		beginX = 0;
+
 	if(endX > 1)
-	    endX = 1;
-	    
+		endX = 1;
+
 	float beginY = 0 ;
 	float endY = 1.0;
 
 	
 	if(position.x >  beginX && position.x < endX && position.y >  beginY && position.y < endY)
 	{
-	  gl_FragColor = color2*maskColor.w + color1*(1-maskColor.w);
+		gl_FragColor = color2*maskColor.w + color1*(1-maskColor.w);
 	}
-	  
 	else
-	  gl_FragColor = color1;
-	  
-
+		gl_FragColor = color1;
 }
