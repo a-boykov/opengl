@@ -5,7 +5,7 @@ layout(location = 1) in vec4 color;
 
 smooth out vec4 theColor;
 
-uniform vec2 offset;
+uniform vec3 offset;
 //NEW
 uniform mat4 perspectiveMatrix;
 //OLD
@@ -15,7 +15,7 @@ uniform mat4 perspectiveMatrix;
 
 void main()
 {
-	vec4 cameraPos = position + vec4(offset.x, offset.y, 0.0, 0.0);
+	vec4 cameraPos = position + vec4(offset.x, offset.y, offset.z, 0.0);
 
 // OLD
 //	vec4 clipPos;

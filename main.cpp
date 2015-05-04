@@ -32,109 +32,144 @@ Shader shColorTopBottom;
 Shader shMove;
 Shader shMoveBetter;
 
-const float vertexPositions[] = {
-	0.25f,  0.25f, -1.25f, 1.0f,
-	0.25f, -0.25f, -1.25f, 1.0f,
-   -0.25f,  0.25f, -1.25f, 1.0f,
+const int numberOfVertices = 36;
 
-	0.25f, -0.25f, -1.25f, 1.0f,
-   -0.25f, -0.25f, -1.25f, 1.0f,
-   -0.25f,  0.25f, -1.25f, 1.0f,
+#define RIGHT_EXTENT 0.8f
+#define LEFT_EXTENT -RIGHT_EXTENT
+#define TOP_EXTENT 0.20f
+#define MIDDLE_EXTENT 0.0f
+#define BOTTOM_EXTENT -TOP_EXTENT
+#define FRONT_EXTENT -1.25f
+#define REAR_EXTENT -1.75f
 
-	0.25f,  0.25f, -2.75f, 1.0f,
-   -0.25f,  0.25f, -2.75f, 1.0f,
-	0.25f, -0.25f, -2.75f, 1.0f,
+#define GREEN_COLOR 0.75f, 0.75f, 1.0f, 1.0f
+#define BLUE_COLOR 	0.0f, 0.5f, 0.0f, 1.0f
+#define RED_COLOR 1.0f, 0.0f, 0.0f, 1.0f
+#define GREY_COLOR 0.8f, 0.8f, 0.8f, 1.0f
+#define BROWN_COLOR 0.5f, 0.5f, 0.0f, 1.0f
 
-	0.25f, -0.25f, -2.75f, 1.0f,
-   -0.25f,  0.25f, -2.75f, 1.0f,
-   -0.25f, -0.25f, -2.75f, 1.0f,
+const float vertexData[] = {
+	//Object 1 positions
+	LEFT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
+	LEFT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
+	RIGHT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
+	RIGHT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
 
-   -0.25f,  0.25f, -1.25f, 1.0f,
-   -0.25f, -0.25f, -1.25f, 1.0f,
-   -0.25f, -0.25f, -2.75f, 1.0f,
+	LEFT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
+	LEFT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
+	RIGHT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
+	RIGHT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
 
-   -0.25f,  0.25f, -1.25f, 1.0f,
-   -0.25f, -0.25f, -2.75f, 1.0f,
-   -0.25f,  0.25f, -2.75f, 1.0f,
+	LEFT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
+	LEFT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
+	LEFT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
 
-	0.25f,  0.25f, -1.25f, 1.0f,
-	0.25f, -0.25f, -2.75f, 1.0f,
-	0.25f, -0.25f, -1.25f, 1.0f,
+	RIGHT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
+	RIGHT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
+	RIGHT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
 
-	0.25f,  0.25f, -1.25f, 1.0f,
-	0.25f,  0.25f, -2.75f, 1.0f,
-	0.25f, -0.25f, -2.75f, 1.0f,
+	LEFT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
+	LEFT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
+	RIGHT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
+	RIGHT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
 
-	0.25f,  0.25f, -2.75f, 1.0f,
-	0.25f,  0.25f, -1.25f, 1.0f,
-   -0.25f,  0.25f, -1.25f, 1.0f,
+//	0, 2, 1,
+//	3, 2, 0,
 
-	0.25f,  0.25f, -2.75f, 1.0f,
-   -0.25f,  0.25f, -1.25f, 1.0f,
-   -0.25f,  0.25f, -2.75f, 1.0f,
+	//Object 2 positions
+	TOP_EXTENT,		RIGHT_EXTENT,	REAR_EXTENT,
+	MIDDLE_EXTENT,	RIGHT_EXTENT,	FRONT_EXTENT,
+	MIDDLE_EXTENT,	LEFT_EXTENT,	FRONT_EXTENT,
+	TOP_EXTENT,		LEFT_EXTENT,	REAR_EXTENT,
 
-	0.25f, -0.25f, -2.75f, 1.0f,
-   -0.25f, -0.25f, -1.25f, 1.0f,
-	0.25f, -0.25f, -1.25f, 1.0f,
+	BOTTOM_EXTENT,	RIGHT_EXTENT,	REAR_EXTENT,
+	MIDDLE_EXTENT,	RIGHT_EXTENT,	FRONT_EXTENT,
+	MIDDLE_EXTENT,	LEFT_EXTENT,	FRONT_EXTENT,
+	BOTTOM_EXTENT,	LEFT_EXTENT,	REAR_EXTENT,
 
-	0.25f, -0.25f, -2.75f, 1.0f,
-   -0.25f, -0.25f, -2.75f, 1.0f,
-   -0.25f, -0.25f, -1.25f, 1.0f,
+	TOP_EXTENT,		RIGHT_EXTENT,	REAR_EXTENT,
+	MIDDLE_EXTENT,	RIGHT_EXTENT,	FRONT_EXTENT,
+	BOTTOM_EXTENT,	RIGHT_EXTENT,	REAR_EXTENT,
 
+	TOP_EXTENT,		LEFT_EXTENT,	REAR_EXTENT,
+	MIDDLE_EXTENT,	LEFT_EXTENT,	FRONT_EXTENT,
+	BOTTOM_EXTENT,	LEFT_EXTENT,	REAR_EXTENT,
 
-   0.0f, 0.0f, 1.0f, 1.0f,
-   0.0f, 0.0f, 1.0f, 1.0f,
-   0.0f, 0.0f, 1.0f, 1.0f,
+	BOTTOM_EXTENT,	RIGHT_EXTENT,	REAR_EXTENT,
+	TOP_EXTENT,		RIGHT_EXTENT,	REAR_EXTENT,
+	TOP_EXTENT,		LEFT_EXTENT,	REAR_EXTENT,
+	BOTTOM_EXTENT,	LEFT_EXTENT,	REAR_EXTENT,
 
-   0.0f, 0.0f, 1.0f, 1.0f,
-   0.0f, 0.0f, 1.0f, 1.0f,
-   0.0f, 0.0f, 1.0f, 1.0f,
+	//Object 1 colors
+	GREEN_COLOR,
+	GREEN_COLOR,
+	GREEN_COLOR,
+	GREEN_COLOR,
 
-   0.8f, 0.8f, 0.8f, 1.0f,
-   0.8f, 0.8f, 0.8f, 1.0f,
-   0.8f, 0.8f, 0.8f, 1.0f,
+	BLUE_COLOR,
+	BLUE_COLOR,
+	BLUE_COLOR,
+	BLUE_COLOR,
 
-   0.8f, 0.8f, 0.8f, 1.0f,
-   0.8f, 0.8f, 0.8f, 1.0f,
-   0.8f, 0.8f, 0.8f, 1.0f,
+	RED_COLOR,
+	RED_COLOR,
+	RED_COLOR,
 
-   0.0f, 1.0f, 0.0f, 1.0f,
-   0.0f, 1.0f, 0.0f, 1.0f,
-   0.0f, 1.0f, 0.0f, 1.0f,
+	GREY_COLOR,
+	GREY_COLOR,
+	GREY_COLOR,
 
-   0.0f, 1.0f, 0.0f, 1.0f,
-   0.0f, 1.0f, 0.0f, 1.0f,
-   0.0f, 1.0f, 0.0f, 1.0f,
+	BROWN_COLOR,
+	BROWN_COLOR,
+	BROWN_COLOR,
+	BROWN_COLOR,
 
-   0.5f, 0.5f, 0.0f, 1.0f,
-   0.5f, 0.5f, 0.0f, 1.0f,
-   0.5f, 0.5f, 0.0f, 1.0f,
+	//Object 2 colors
+	RED_COLOR,
+	RED_COLOR,
+	RED_COLOR,
+	RED_COLOR,
 
-   0.5f, 0.5f, 0.0f, 1.0f,
-   0.5f, 0.5f, 0.0f, 1.0f,
-   0.5f, 0.5f, 0.0f, 1.0f,
+	BROWN_COLOR,
+	BROWN_COLOR,
+	BROWN_COLOR,
+	BROWN_COLOR,
 
-   1.0f, 0.0f, 0.0f, 1.0f,
-   1.0f, 0.0f, 0.0f, 1.0f,
-   1.0f, 0.0f, 0.0f, 1.0f,
+	BLUE_COLOR,
+	BLUE_COLOR,
+	BLUE_COLOR,
 
-   1.0f, 0.0f, 0.0f, 1.0f,
-   1.0f, 0.0f, 0.0f, 1.0f,
-   1.0f, 0.0f, 0.0f, 1.0f,
+	GREEN_COLOR,
+	GREEN_COLOR,
+	GREEN_COLOR,
 
-   0.0f, 1.0f, 1.0f, 1.0f,
-   0.0f, 1.0f, 1.0f, 1.0f,
-   0.0f, 1.0f, 1.0f, 1.0f,
-
-   0.0f, 1.0f, 1.0f, 1.0f,
-   0.0f, 1.0f, 1.0f, 1.0f,
-   0.0f, 1.0f, 1.0f, 1.0f,
-
+	GREY_COLOR,
+	GREY_COLOR,
+	GREY_COLOR,
+	GREY_COLOR,
 };
 
-GLuint positionBufferObject;
-GLuint vao;
+const GLshort indexData[] =
+{
+	0, 2, 1,
+	3, 2, 0,
 
+	4, 5, 6,
+	6, 7, 4,
+
+	8, 9, 10,
+	11, 13, 12,
+
+	14, 16, 15,
+	17, 16, 14,
+};
+
+GLuint	vao,
+		vaoObject1,
+		vaoObject2;
+
+GLuint vertexBufferObject;
+GLuint indexBufferObject;
 
 void TimeEvent(int te);
 void init(void);
@@ -142,6 +177,7 @@ void display(void);
 void reshape (int w, int h);
 void keyboard (unsigned char key, int x, int y);
 void InitializeVertexBuffer();
+void InitializeVertexArrayObj();
 void ComputePositionOffsets(float &fXOffset, float &fYOffset);
 void AdjustVertexData(float fXOffset, float fYOffset);
 
@@ -198,11 +234,51 @@ void TimeEvent(int )
 
 void InitializeVertexBuffer()
 {
-	glGenBuffers(1, &positionBufferObject);
+	glGenBuffers(1, &vertexBufferObject);
 
-	glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexPositions), vertexPositions, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, &indexBufferObject);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexData), indexData, GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void InitializeVertexArrayObj()
+{
+	glGenVertexArrays(1, &vaoObject1);
+	glBindVertexArray(vaoObject1);
+
+	size_t colorDataOffset = sizeof(float) * 3 * numberOfVertices;
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)colorDataOffset);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
+
+	glBindVertexArray(0);
+
+
+	glGenVertexArrays(1, &vaoObject2);
+	glBindVertexArray(vaoObject2);
+
+	size_t posDataOffset = sizeof(float) * 3 *(numberOfVertices/2);
+	colorDataOffset += sizeof(float) * 4 * (numberOfVertices/2);
+
+	//Use the same buffer object previously bound to GL_ARRAY_BUFFER.
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)posDataOffset);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)colorDataOffset);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
+
+	glBindVertexArray(0);
 }
 
 void init(void)
@@ -214,9 +290,9 @@ void init(void)
 	shader1.InitializeProgram("glsl/manualperspective.vert","glsl/smoothcolor.frag");
 
 	InitializeVertexBuffer();
-
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	InitializeVertexArrayObj();
+//	glGenVertexArrays(1, &vao);
+//	glBindVertexArray(vao);
 	// GLSL Moving triangle END
 
 //	glClearColor (0.0, 0.0, 0.0, 0.0);
@@ -251,21 +327,15 @@ void display(void)
 //	glTranslatef(0,0,-10);
 
 	shader1.Use(true);
-	glUniform2f(shader1.GetOffset(), 0.5f, 0.5f);
+	glBindVertexArray(vaoObject1);
+	glUniform3f(shader1.GetOffset(), 0.0f, 0.0f, 0.0f);
+	glDrawElements(GL_TRIANGLES, ARRAY_COUNT(indexData), GL_UNSIGNED_SHORT, 0);
 
-	size_t colorData = sizeof(vertexPositions) / 2;
-	glBindBuffer(GL_ARRAY_BUFFER, positionBufferObject);
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)colorData);
+	glBindVertexArray(vaoObject2);
+	glUniform3f(shader1.GetOffset(), 0.0f, 0.0f, -1.0f);
+	glDrawElements(GL_TRIANGLES, ARRAY_COUNT(indexData), GL_UNSIGNED_SHORT, 0);
 
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
-
-
+	glBindVertexArray(0);
 	shader1.Use(false);
 
 //	glPopMatrix();
