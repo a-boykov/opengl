@@ -7,6 +7,7 @@
 #include "Shader.h"
 #include <stdio.h>
 #include <algorithm>
+#include <string.h>
 //#include <stdlib.h>
 //#include <exception>
 //#include <stdexcept>
@@ -33,14 +34,27 @@ void Shader::InitializeProgram(const std::string &strVertexShader, const std::st
 	std::for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 
 	offsetLocation = glGetUniformLocation(program, "offset");
-	frustumScaleUnif = glGetUniformLocation(program, "frustumScale");
+	perspectiveMatrix = glGetUniformLocation(program, "perspectiveMatrix");
+	float fFrustumScale = 1.0f;
+	float fzNear = 0.5f;
+	float fzFar = 3.0f;
+
+	float theMatrix[16];
+	memset(theMatrix, 0, sizeof(float)*16);
+
+	theMatrix[0] = fFrustumScale;
+	theMatrix[5] = fFrustumScale;
+	theMatrix[10] = (fzFar+fzNear)/(fzNear-fzFar);
+	theMatrix[14] = (2*fzFar*fzNear)/(fzNear-fzFar);
+	theMatrix[11] = -1.0f;
+
 	zNearUnif = glGetUniformLocation(program, "zNear");
 	zFarUnif = glGetUniformLocation(program, "zFar");
 
 	Use(true);
-	glUniform1f(frustumScaleUnif, 1.0f);
-	glUniform1f(zNearUnif, 1.0f);
-	glUniform1f(zFarUnif, 3.0f);
+	glUniformMatrix4fv(perspectiveMatrix, 1, GL_FALSE, theMatrix);
+//	glUniform1f(zNearUnif, 1.0f);
+//	glUniform1f(zFarUnif, 3.0f);
 	Use(false);
 }
 
@@ -224,7 +238,7 @@ GLenum Shader::GetOffset()
 
 GLuint Shader::GetFrustumScale()
 {
-	return frustumScaleUnif;
+	return perspectiveMatrix;
 }
 
 GLuint Shader::GetZFar()

@@ -33,5 +33,9 @@ DISTFILES += \
     data/texture1.png \
     data/texture2.png \
     data/texture2old.png \
-    data/texture3.png
+    data/texture3.png \
+    glsl/standard.vert \
+    glsl/standard.frag \
+    glsl/positionofsset.vert \
+    glsl/manualperspective.vert
 

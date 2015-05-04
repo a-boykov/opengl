@@ -43,7 +43,7 @@ public:
 
 private:
 	GLuint offsetLocation;
-	GLuint frustumScaleUnif;
+	GLuint perspectiveMatrix;
 	GLuint zNearUnif;
 	GLuint zFarUnif;
 

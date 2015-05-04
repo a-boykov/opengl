@@ -233,6 +233,7 @@ void init(void)
 
 void display(void)
 {
+
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 	glClear (GL_COLOR_BUFFER_BIT/* | GL_DEPTH_BUFFER_BIT*/);
 
@@ -272,12 +273,15 @@ void display(void)
 
 
 	glutSwapBuffers();
-	glutPostRedisplay();
+
 }
 
 void reshape (int w, int h)
 {
-	glViewport (0, 0, (GLsizei) w, (GLsizei) h);
+	if ( w < h )
+		glViewport (0, 0, (GLsizei) w, (GLsizei) w);
+	else
+		glViewport (0, 0, (GLsizei) h, (GLsizei) h);
 //	glMatrixMode (GL_PROJECTION);
 //	glLoadIdentity ();
 }
