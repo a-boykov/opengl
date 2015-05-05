@@ -151,17 +151,17 @@ const float vertexData[] = {
 
 const GLshort indexData[] =
 {
-	0, 2, 1,
-	3, 2, 0,
+	//obj 1
+	0, 2, 1,		3, 2, 0,
+	4, 5, 6,		6, 7, 4,
+	8, 9, 10,		11, 13, 12,
+	14, 16, 15,		17, 16, 14,
 
-	4, 5, 6,
-	6, 7, 4,
-
-	8, 9, 10,
-	11, 13, 12,
-
-	14, 16, 15,
-	17, 16, 14,
+	//obj 2
+	18, 20, 19,		21, 20, 18,
+	22, 23, 24,		24, 25, 22,
+	26, 27, 28,		29, 31, 30,
+	32, 34, 33,		35, 34, 32
 };
 
 GLuint	vao,
@@ -249,8 +249,8 @@ void InitializeVertexBuffer()
 
 void InitializeVertexArrayObj()
 {
-	glGenVertexArrays(1, &vaoObject1);
-	glBindVertexArray(vaoObject1);
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
 
 	size_t colorDataOffset = sizeof(float) * 3 * numberOfVertices;
 
@@ -259,22 +259,6 @@ void InitializeVertexArrayObj()
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)colorDataOffset);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
-
-	glBindVertexArray(0);
-
-
-	glGenVertexArrays(1, &vaoObject2);
-	glBindVertexArray(vaoObject2);
-
-	size_t posDataOffset = sizeof(float) * 3 *(numberOfVertices/2);
-	colorDataOffset += sizeof(float) * 4 * (numberOfVertices/2);
-
-	//Use the same buffer object previously bound to GL_ARRAY_BUFFER.
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)posDataOffset);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (void*)colorDataOffset);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferObject);
 
@@ -297,7 +281,13 @@ void init(void)
 
 //	glClearColor (0.0, 0.0, 0.0, 0.0);
 //	glShadeModel(GL_SMOOTH);
-//	glEnable(GL_DEPTH_TEST);
+
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LEQUAL);
+	glDepthRange(0.0f, 1.0f);
+
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
@@ -311,7 +301,8 @@ void display(void)
 {
 
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
-	glClear (GL_COLOR_BUFFER_BIT/* | GL_DEPTH_BUFFER_BIT*/);
+	glClearDepth(1.0f);
+	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 //	glMatrixMode (GL_PROJECTION);
 //	glLoadIdentity();
@@ -327,13 +318,12 @@ void display(void)
 //	glTranslatef(0,0,-10);
 
 	shader1.Use(true);
-	glBindVertexArray(vaoObject1);
-	glUniform3f(shader1.GetOffset(), 0.0f, 0.0f, 0.0f);
-	glDrawElements(GL_TRIANGLES, ARRAY_COUNT(indexData), GL_UNSIGNED_SHORT, 0);
+	glBindVertexArray(vao);
+	glUniform3f(shader1.GetOffset(), 0.0f, 0.0f, 0.25f);
+	glDrawElements(GL_TRIANGLES, ARRAY_COUNT(indexData)/2, GL_UNSIGNED_SHORT, 0);
 
-	glBindVertexArray(vaoObject2);
 	glUniform3f(shader1.GetOffset(), 0.0f, 0.0f, -1.0f);
-	glDrawElements(GL_TRIANGLES, ARRAY_COUNT(indexData), GL_UNSIGNED_SHORT, 0);
+	glDrawElementsBaseVertex(GL_TRIANGLES, ARRAY_COUNT(indexData), GL_UNSIGNED_SHORT, 0, numberOfVertices/2);
 
 	glBindVertexArray(0);
 	shader1.Use(false);
@@ -358,11 +348,21 @@ void reshape (int w, int h)
 
 void keyboard (unsigned char key,int x,int y)
 {
+	static bool bDepthClampingActive = false;
 	switch (key)
 		{
 		case 27:
 			glutLeaveMainLoop();
 			return;
+			break;
+		case 32:
+			if(bDepthClampingActive)
+				glDisable(GL_DEPTH_CLAMP);
+			else
+				glEnable(GL_DEPTH_CLAMP);
+
+			bDepthClampingActive = !bDepthClampingActive;
+			break;
 		}
 
 }
