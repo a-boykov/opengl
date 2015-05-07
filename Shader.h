@@ -10,6 +10,8 @@
 #include <GL/glew.h>
 #include <string>
 #include <vector>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 typedef unsigned int GLenum;
 
@@ -20,8 +22,6 @@ public:
 	~Shader();
 
 	void InitializeProgram(const std::string &strVertexShader, const std::string &strFragmentShader);
-	void InitializeProgramWithArray(const std::string &strVertexShader, const std::string &strFragmentShader);
-	void InitializeProgram(const std::string &strVertexShader, const std::string &strFragmentShader, bool special);
 
 	GLuint CreateShader(GLenum eShaderType, const std::string &strShaderFile);
 	GLuint CreateProgram(const std::vector<GLuint> &shaderList);
@@ -31,21 +31,25 @@ public:
 	void SetWidth(float var);
 	void SetHeight(float var);
 	void SetPosition(int x, int y);
-	GLenum GetOffset();
 
+
+	GLenum GetOffset();
 	GLuint GetFrustumScale();
-	GLuint GetZNear();
+	GLuint GetModelToCameraMatrixUnif();
 	GLuint GetZFar();
 
+	glm::mat4 GetCameraToClipMx();
 
+	void CalcFrustumScale(float fFovDeg);
+	float fFrustumScale;
+private:
 	const char* ReadFile(const char *file);
 
-
-private:
-	GLuint offsetLocation;
-	GLuint perspectiveMatrix;
-	GLuint zNearUnif;
-	GLuint zFarUnif;
+	glm::mat4 cameraToClipMatrix;
+	GLuint positionAttrib;
+	GLuint colorAttrib;
+	GLuint modelToCameraMatrixUnif;
+	GLuint cameraToClipMatrixUnif;
 
 	GLenum program;
 	GLenum time;

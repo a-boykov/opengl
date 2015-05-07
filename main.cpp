@@ -32,144 +32,56 @@ Shader shColorTopBottom;
 Shader shMove;
 Shader shMoveBetter;
 
-const int numberOfVertices = 36;
+const int numberOfVertices = 8;
 
-#define RIGHT_EXTENT 0.8f
-#define LEFT_EXTENT -RIGHT_EXTENT
-#define TOP_EXTENT 0.20f
-#define MIDDLE_EXTENT 0.0f
-#define BOTTOM_EXTENT -TOP_EXTENT
-#define FRONT_EXTENT -1.25f
-#define REAR_EXTENT -1.75f
-
-#define GREEN_COLOR 0.75f, 0.75f, 1.0f, 1.0f
-#define BLUE_COLOR 	0.0f, 0.5f, 0.0f, 1.0f
+#define GREEN_COLOR 0.0f, 1.0f, 0.0f, 1.0f
+#define BLUE_COLOR 	0.0f, 0.0f, 1.0f, 1.0f
 #define RED_COLOR 1.0f, 0.0f, 0.0f, 1.0f
 #define GREY_COLOR 0.8f, 0.8f, 0.8f, 1.0f
 #define BROWN_COLOR 0.5f, 0.5f, 0.0f, 1.0f
 
 const float vertexData[] = {
 	//Object 1 positions
-	LEFT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
-	LEFT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
-	RIGHT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
-	RIGHT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
+	+1.0f, +1.0f, +1.0f,
+	-1.0f, -1.0f, +1.0f,
+	-1.0f, +1.0f, -1.0f,
+	+1.0f, -1.0f, -1.0f,
 
-	LEFT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
-	LEFT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
-	RIGHT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
-	RIGHT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
-
-	LEFT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
-	LEFT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
-	LEFT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
-
-	RIGHT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
-	RIGHT_EXTENT,	MIDDLE_EXTENT,	FRONT_EXTENT,
-	RIGHT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
-
-	LEFT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
-	LEFT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
-	RIGHT_EXTENT,	TOP_EXTENT,		REAR_EXTENT,
-	RIGHT_EXTENT,	BOTTOM_EXTENT,	REAR_EXTENT,
-
-//	0, 2, 1,
-//	3, 2, 0,
-
-	//Object 2 positions
-	TOP_EXTENT,		RIGHT_EXTENT,	REAR_EXTENT,
-	MIDDLE_EXTENT,	RIGHT_EXTENT,	FRONT_EXTENT,
-	MIDDLE_EXTENT,	LEFT_EXTENT,	FRONT_EXTENT,
-	TOP_EXTENT,		LEFT_EXTENT,	REAR_EXTENT,
-
-	BOTTOM_EXTENT,	RIGHT_EXTENT,	REAR_EXTENT,
-	MIDDLE_EXTENT,	RIGHT_EXTENT,	FRONT_EXTENT,
-	MIDDLE_EXTENT,	LEFT_EXTENT,	FRONT_EXTENT,
-	BOTTOM_EXTENT,	LEFT_EXTENT,	REAR_EXTENT,
-
-	TOP_EXTENT,		RIGHT_EXTENT,	REAR_EXTENT,
-	MIDDLE_EXTENT,	RIGHT_EXTENT,	FRONT_EXTENT,
-	BOTTOM_EXTENT,	RIGHT_EXTENT,	REAR_EXTENT,
-
-	TOP_EXTENT,		LEFT_EXTENT,	REAR_EXTENT,
-	MIDDLE_EXTENT,	LEFT_EXTENT,	FRONT_EXTENT,
-	BOTTOM_EXTENT,	LEFT_EXTENT,	REAR_EXTENT,
-
-	BOTTOM_EXTENT,	RIGHT_EXTENT,	REAR_EXTENT,
-	TOP_EXTENT,		RIGHT_EXTENT,	REAR_EXTENT,
-	TOP_EXTENT,		LEFT_EXTENT,	REAR_EXTENT,
-	BOTTOM_EXTENT,	LEFT_EXTENT,	REAR_EXTENT,
+	-1.0f, -1.0f, -1.0f,
+	+1.0f, +1.0f, -1.0f,
+	+1.0f, -1.0f, +1.0f,
+	-1.0f, +1.0f, +1.0f,
 
 	//Object 1 colors
 	GREEN_COLOR,
-	GREEN_COLOR,
-	GREEN_COLOR,
-	GREEN_COLOR,
-
 	BLUE_COLOR,
-	BLUE_COLOR,
-	BLUE_COLOR,
-	BLUE_COLOR,
-
 	RED_COLOR,
-	RED_COLOR,
-	RED_COLOR,
-
-	GREY_COLOR,
-	GREY_COLOR,
-	GREY_COLOR,
-
 	BROWN_COLOR,
-	BROWN_COLOR,
-	BROWN_COLOR,
-	BROWN_COLOR,
-
-	//Object 2 colors
-	RED_COLOR,
-	RED_COLOR,
-	RED_COLOR,
-	RED_COLOR,
-
-	BROWN_COLOR,
-	BROWN_COLOR,
-	BROWN_COLOR,
-	BROWN_COLOR,
-
-	BLUE_COLOR,
-	BLUE_COLOR,
-	BLUE_COLOR,
 
 	GREEN_COLOR,
-	GREEN_COLOR,
-	GREEN_COLOR,
-
-	GREY_COLOR,
-	GREY_COLOR,
-	GREY_COLOR,
-	GREY_COLOR,
+	BLUE_COLOR,
+	RED_COLOR,
+	BROWN_COLOR
 };
 
 const GLshort indexData[] =
 {
 	//obj 1
-	0, 2, 1,		3, 2, 0,
-	4, 5, 6,		6, 7, 4,
-	8, 9, 10,		11, 13, 12,
-	14, 16, 15,		17, 16, 14,
+	0, 1, 2,
+	1, 0, 3,
+	2, 3, 0,
+	3, 2, 1,
 
-	//obj 2
-	18, 20, 19,		21, 20, 18,
-	22, 23, 24,		24, 25, 22,
-	26, 27, 28,		29, 31, 30,
-	32, 34, 33,		35, 34, 32
+	5, 4, 6,
+	4, 5, 7,
+	7, 6, 4,
+	6, 7, 5
 };
 
-GLuint	vao,
-		vaoObject1,
-		vaoObject2;
-
+GLuint	vao;
 GLuint vertexBufferObject;
 GLuint indexBufferObject;
+
 
 void TimeEvent(int te);
 void init(void);
@@ -181,7 +93,36 @@ void InitializeVertexArrayObj();
 void ComputePositionOffsets(float &fXOffset, float &fYOffset);
 void AdjustVertexData(float fXOffset, float fYOffset);
 
+glm::vec3 StationaryOffset(float fElapsedTime);
+glm::vec3 OvalOffset(float fElapsedTime);
+glm::vec3 BottomCircleOffset(float fElapsedTime);
+glm::mat4 ConstructMatrix(float fElapsedTime);
+
 GLenum loadTexture(const char *textureFile);
+
+struct Instance
+{
+	typedef glm::vec3(*OffsetFunc)(float);
+
+	OffsetFunc CalcOffset;
+
+	glm::mat4 ConstructMatrix(float fElapsedTime)
+	{
+		glm::mat4 theMat(1.0f);
+
+		theMat[3] = glm::vec4(CalcOffset(fElapsedTime), 1.0f);
+
+		return theMat;
+	}
+};
+
+Instance g_instaceList[] =
+{
+	{StationaryOffset},
+	{OvalOffset},
+	{BottomCircleOffset}
+};
+
 
 int main(int argc, char** argv)
 {
@@ -213,12 +154,6 @@ void TimeEvent(int )
 
 
 	glutPostRedisplay();
-//	shader1.Use(true);
-//	shader1.SetTime(time1);
-//	shader2.Use(true);
-//	shader2.SetTime(time2);
-	//shader3.Use(true);
-	//shader3.SetTime(time2);
 	glutTimerFunc( 10, TimeEvent, 1);
 
 	time1 += delta1;
@@ -247,6 +182,35 @@ void InitializeVertexBuffer()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
+glm::vec3 StationaryOffset(float fElapsedTime)
+{
+	return glm::vec3(0.0f, 0.0f, -20.0f);
+}
+
+glm::vec3 OvalOffset(float fElapsedTime)
+{
+	const float fLoopDuration = 3.0f;
+	const float fScale = 3.14159f * 2.0f / fLoopDuration;
+
+	float fCurrTimeThroughLoop = fmodf(fElapsedTime, fLoopDuration);
+
+	return glm::vec3(cosf(fCurrTimeThroughLoop * fScale) * 4.0f,
+					 sinf(fCurrTimeThroughLoop * fScale) * 6.0f,
+					 -20.0f);
+}
+
+glm::vec3 BottomCircleOffset(float fElapsedTime)
+{
+	const float fLoopDuration = 12.0f;
+	const float fScale = 3.14159f * 2.0f / fLoopDuration;
+
+	float fCurrTimeThroughLoop = fmodf(fElapsedTime, fLoopDuration);
+
+	return glm::vec3(cosf(fCurrTimeThroughLoop * fScale) * 5.0f,
+					 -3.5f,
+					 sinf(fCurrTimeThroughLoop * fScale) * 5.0f - 20.0f);
+}
+
 void InitializeVertexArrayObj()
 {
 	glGenVertexArrays(1, &vao);
@@ -267,30 +231,23 @@ void InitializeVertexArrayObj()
 
 void init(void)
 {
-//	image1 = loadTexture("data/pick_01.png");
-//	image2 = loadTexture("data/pick_02.png");
-//	image3 = loadTexture("data/mask005.png");
-//	background = loadTexture("data/screen.png");
-	shader1.InitializeProgram("glsl/manualperspective.vert","glsl/smoothcolor.frag");
+	shader1.CalcFrustumScale(80.0f);
+	shader1.InitializeProgram("glsl/poscolorlocaltransform.vert","glsl/smoothcolor.frag");
 
 	InitializeVertexBuffer();
 	InitializeVertexArrayObj();
-//	glGenVertexArrays(1, &vao);
-//	glBindVertexArray(vao);
 	// GLSL Moving triangle END
 
 //	glClearColor (0.0, 0.0, 0.0, 0.0);
 //	glShadeModel(GL_SMOOTH);
-
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_TRUE);
 	glDepthFunc(GL_LEQUAL);
 	glDepthRange(0.0f, 1.0f);
-
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CW);
 
 //	glMatrixMode(GL_PROJECTION);
 //	glLoadIdentity();
@@ -319,11 +276,16 @@ void display(void)
 
 	shader1.Use(true);
 	glBindVertexArray(vao);
-	glUniform3f(shader1.GetOffset(), 0.0f, 0.0f, 0.25f);
-	glDrawElements(GL_TRIANGLES, ARRAY_COUNT(indexData)/2, GL_UNSIGNED_SHORT, 0);
 
-	glUniform3f(shader1.GetOffset(), 0.0f, 0.0f, -1.0f);
-	glDrawElementsBaseVertex(GL_TRIANGLES, ARRAY_COUNT(indexData), GL_UNSIGNED_SHORT, 0, numberOfVertices/2);
+	float fElapsedTime = glutGet(GLUT_ELAPSED_TIME) / 1000.0f;
+	for(int iLoop = 0; iLoop < ARRAY_COUNT(g_instaceList); ++iLoop)
+	{
+		Instance &currInst = g_instaceList[iLoop];
+		const glm::mat4 &transformMatrix = currInst.ConstructMatrix(fElapsedTime);
+
+		glUniformMatrix4fv(shader1.GetModelToCameraMatrixUnif(), 1, GL_FALSE, glm::value_ptr(transformMatrix));
+		glDrawElements(GL_TRIANGLES, ARRAY_COUNT(indexData), GL_UNSIGNED_SHORT, 0);
+	}
 
 	glBindVertexArray(0);
 	shader1.Use(false);
@@ -407,3 +369,4 @@ GLenum loadTexture(const char * textureFile)
 
 	return texturaID;
 }
+

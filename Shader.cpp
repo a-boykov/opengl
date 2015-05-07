@@ -8,11 +8,14 @@
 #include <stdio.h>
 #include <algorithm>
 #include <string.h>
+
 //#include <stdlib.h>
 //#include <exception>
 //#include <stdexcept>
 
-Shader::Shader()
+
+
+Shader::Shader():fFrustumScale(0),cameraToClipMatrix(0.0f)
 {
 }
 
@@ -21,6 +24,16 @@ Shader::~Shader()
 	Use(false);
 	glDeleteProgram(program);
 }
+
+void Shader::CalcFrustumScale(float fFovDeg)
+{
+	const float degToRad = 3.14159f * 2.0f / 360.0f;
+	float fFovRad = fFovDeg * degToRad;
+
+	fFrustumScale = 1.0f/tan(fFovRad/2.0f);
+}
+
+//const float fFrustumScale = CalcFrustumScale(45.0f);
 
 void Shader::InitializeProgram(const std::string &strVertexShader, const std::string &strFragmentShader)
 {
@@ -33,83 +46,23 @@ void Shader::InitializeProgram(const std::string &strVertexShader, const std::st
 
 	std::for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
 
-	offsetLocation = glGetUniformLocation(program, "offset");
-	perspectiveMatrix = glGetUniformLocation(program, "perspectiveMatrix");
-	float fFrustumScale = 1.0f;
-	float fzNear = 0.5f;
-	float fzFar = 3.0f;
+	positionAttrib = glGetAttribLocation(program, "position");
+	colorAttrib = glGetAttribLocation(program, "color");
 
-	float theMatrix[16];
-	memset(theMatrix, 0, sizeof(float)*16);
+	modelToCameraMatrixUnif = glGetUniformLocation(program, "modelToCameraMatrix");
+	cameraToClipMatrixUnif = glGetUniformLocation(program, "cameraToClipMatrix");
 
-	theMatrix[0] = fFrustumScale;
-	theMatrix[5] = fFrustumScale;
-	theMatrix[10] = (fzFar+fzNear)/(fzNear-fzFar);
-	theMatrix[14] = (2*fzFar*fzNear)/(fzNear-fzFar);
-	theMatrix[11] = -1.0f;
+	float fzNear = 1.0f;
+	float fzFar = 45.0f;
 
-	zNearUnif = glGetUniformLocation(program, "zNear");
-	zFarUnif = glGetUniformLocation(program, "zFar");
+	cameraToClipMatrix[0].x = fFrustumScale;
+	cameraToClipMatrix[1].y = fFrustumScale;
+	cameraToClipMatrix[2].z = (fzFar + fzNear) / (fzNear - fzFar);
+	cameraToClipMatrix[2].w = -1.0f;
+	cameraToClipMatrix[3].z = (2 * fzFar * fzNear) / (fzNear - fzFar);
 
 	Use(true);
-	glUniformMatrix4fv(perspectiveMatrix, 1, GL_FALSE, theMatrix);
-//	glUniform1f(zNearUnif, 1.0f);
-//	glUniform1f(zFarUnif, 3.0f);
-	Use(false);
-}
-
-//void Shader::InitializeProgramWithArray(const std::string &strVertexShader, const std::string &strFragmentShader)
-//{
-//	std::vector<GLuint> shaderList;
-//	shaderList.push_back(CreateShader(GL_VERTEX_SHADER, strVertexShader));
-//	shaderList.push_back(CreateShader(GL_FRAGMENT_SHADER, strFragmentShader));
-//	program = CreateProgram(shaderList);
-//	std::for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
-//	Use(true);
-//	glBindBuff
-
-//}
-
-void Shader::InitializeProgram(const std::string &strVertexShader, const std::string &strFragmentShader, bool special)
-{
-	std::vector<GLuint> shaderList;
-
-	shaderList.push_back(CreateShader(GL_VERTEX_SHADER, strVertexShader));
-	shaderList.push_back(CreateShader(GL_FRAGMENT_SHADER, strFragmentShader));
-
-	program = CreateProgram(shaderList);
-
-	std::for_each(shaderList.begin(), shaderList.end(), glDeleteShader);
-
-	Use(true);
-
-	if (special)
-		{
-			GLint tex1 = glGetUniformLocation(program, "tex1");
-			GLint tex2 = glGetUniformLocation(program, "tex2");
-			GLint mask = glGetUniformLocation(program, "mask");
-			glUniform1i(tex1, 0);
-			glUniform1i(tex2, 1);
-			glUniform1i(mask, 2);
-
-			time = glGetUniformLocation(program, "time");
-			maskWidth = glGetUniformLocation(program, "maskWidth");
-			maskHeight = glGetUniformLocation(program, "maskHeight");
-		}
-	else
-		{
-			GLint tex1 = glGetUniformLocation(program, "tex1");
-			GLint tex2 = glGetUniformLocation(program, "tex2");
-
-			glUniform1i(tex1, 0);
-			glUniform1i(tex2, 1);
-
-
-			time = glGetUniformLocation(program, "time");
-			maskWidth = 0;
-			maskHeight = 0;
-		}
-
+	glUniformMatrix4fv(cameraToClipMatrixUnif, 1, GL_FALSE, glm::value_ptr(cameraToClipMatrix) );
 	Use(false);
 }
 
@@ -233,22 +186,27 @@ void Shader::SetHeight(float var)
 }
 GLenum Shader::GetOffset()
 {
-	return offsetLocation;
+	return positionAttrib;
 }
 
 GLuint Shader::GetFrustumScale()
 {
-	return perspectiveMatrix;
+	return colorAttrib;
 }
 
 GLuint Shader::GetZFar()
 {
-	return zFarUnif;
+	return cameraToClipMatrixUnif;
 }
 
-GLuint Shader::GetZNear()
+GLuint Shader::GetModelToCameraMatrixUnif()
 {
-	return zNearUnif;
+	return modelToCameraMatrixUnif;
+}
+
+glm::mat4 Shader::GetCameraToClipMx()
+{
+	return cameraToClipMatrix;
 }
 
 const char* Shader::ReadFile(const char *file)

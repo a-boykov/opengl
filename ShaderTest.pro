@@ -37,5 +37,7 @@ DISTFILES += \
     glsl/standard.vert \
     glsl/standard.frag \
     glsl/positionofsset.vert \
-    glsl/manualperspective.vert
+    glsl/manualperspective.vert \
+    glsl/poscolorlocaltransform.vert \
+    glsl/colorpassthrough.frag
 
