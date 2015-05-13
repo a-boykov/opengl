@@ -1,11 +1,18 @@
-attribute vec4 qt_Vertex;
-attribute vec4 qt_MultiTexCoord0;
-uniform mat4 qt_ModelViewProjectionMatrix;
-varying vec4 qt_TexCoord0;
+#version 330
+
+layout(location = 0) in vec4 position;
+layout(location = 1) in vec4 color;
+
+smooth out vec4 theColor;
+
+uniform mat4 cameraToClipMatrix;
+uniform mat4 modelToCameraMatrix;
 
 void main(void)
 {
-    gl_Position = qt_ModelViewProjectionMatrix * qt_Vertex;
-    qt_TexCoord0 = qt_MultiTexCoord0;
+	vec4 cameraPos = modelToCameraMatrix * position;
+
+	gl_Position = cameraToClipMatrix * cameraPos;
+	theColor = color;
 }
 

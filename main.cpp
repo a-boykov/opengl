@@ -5,11 +5,17 @@
 #include <FreeImage.h>
 #include "Shader.h"
 #include <string.h>
+#include <stdio.h>
 //#include <GL/glu.h>
 //#include <GL/gl.h>
 //#include <iostream>
 
 #define ARRAY_COUNT( array ) (sizeof( array ) / (sizeof( array[0] ) * (sizeof( array ) != sizeof(void*) || sizeof( array[0] ) <= sizeof(void*))))
+
+const int FPS_CAP = 30;
+int frame=0,fps_time,fps_timebase=0, fps;
+char buffer[3];
+
 
 const int SCREEN_WIDTH = 1440;
 const int SCREEN_HEIGHT = 900;
@@ -84,6 +90,7 @@ GLuint indexBufferObject;
 
 
 void TimeEvent(int te);
+void FrameRate(int te);
 void init(void);
 void display(void);
 void reshape (int w, int h);
@@ -138,8 +145,7 @@ int main(int argc, char** argv)
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
-
-	glutTimerFunc( 10, TimeEvent, 1);
+	glutTimerFunc( 1000/FPS_CAP, TimeEvent, 0);
 	glutMainLoop();
 
 	return 0;
@@ -147,24 +153,23 @@ int main(int argc, char** argv)
 
 void TimeEvent(int )
 {
-	static float time1 = 0;
-	static float time2 = 0;
-	static float delta1 = 0.005;
-	static float delta2 = 0.02;
-
-
 	glutPostRedisplay();
-	glutTimerFunc( 10, TimeEvent, 1);
 
-	time1 += delta1;
-	time2 += delta2;
+	frame++;
+	fps_time=glutGet(GLUT_ELAPSED_TIME);
 
-	if(time1 > 1.0f)
-		time1 = 0.0f;
+	if (fps_time - fps_timebase > 1000)
+	{
+		fps = frame*1000.0/(fps_time-fps_timebase);
+		fps_timebase = fps_time;
+		frame = 0;
+	}
 
+	sprintf(buffer,"FRAME RATE: %d", fps);
+	glutSetWindowTitle(buffer);
 
-	if(time2 > 1.0f || time2 < 0)
-		delta2 = -delta2;
+	glutTimerFunc( 1000/FPS_CAP, TimeEvent, 1);
+
 }
 
 void InitializeVertexBuffer()
@@ -182,7 +187,7 @@ void InitializeVertexBuffer()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-glm::vec3 StationaryOffset(float fElapsedTime)
+glm::vec3 StationaryOffset(float /*fElapsedTime*/)
 {
 	return glm::vec3(0.0f, 0.0f, -20.0f);
 }
@@ -231,7 +236,7 @@ void InitializeVertexArrayObj()
 
 void init(void)
 {
-	shader1.CalcFrustumScale(80.0f);
+	shader1.CalcFrustumScale(40.0f);
 	shader1.InitializeProgram("glsl/poscolorlocaltransform.vert","glsl/smoothcolor.frag");
 
 	InitializeVertexBuffer();
@@ -256,7 +261,6 @@ void init(void)
 
 void display(void)
 {
-
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 	glClearDepth(1.0f);
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -308,7 +312,7 @@ void reshape (int w, int h)
 //	glLoadIdentity ();
 }
 
-void keyboard (unsigned char key,int x,int y)
+void keyboard (unsigned char key,int /*x*/,int /*y*/)
 {
 	static bool bDepthClampingActive = false;
 	switch (key)
