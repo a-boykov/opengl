@@ -3,12 +3,16 @@ CONFIG += gui
 CONFIG -= app_bundle
 CONFIG -= qt
 
-SOURCES += main.cpp Shader.cpp
+SOURCES += main.cpp Shader.cpp \
+    matrixstack.cpp \
+    hierarchy.cpp
 
 LIBS += -lglut -lGL -lGLU -lfreeimage -lGLEW
 
 HEADERS += \
-    Shader.h
+    Shader.h \
+    matrixstack.h \
+    hierarchy.h
 
 DISTFILES += \
     glsl/smoothcolor.vert \

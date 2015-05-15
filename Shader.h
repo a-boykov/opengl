@@ -33,8 +33,8 @@ public:
 	void SetPosition(int x, int y);
 
 
-	GLenum GetOffset();
-	GLuint GetFrustumScale();
+	GLenum GetPositionAttrib();
+	GLuint GetColorAttrib();
 	GLuint GetModelToCameraMatrixUnif();
 	GLuint GetZFar();
 
@@ -42,6 +42,7 @@ public:
 
 	void CalcFrustumScale(float fFovDeg);
 	float fFrustumScale;
+
 private:
 	const char* ReadFile(const char *file);
 

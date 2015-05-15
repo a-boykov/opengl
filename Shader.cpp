@@ -13,8 +13,6 @@
 //#include <exception>
 //#include <stdexcept>
 
-
-
 Shader::Shader():fFrustumScale(0),cameraToClipMatrix(0.0f)
 {
 }
@@ -53,7 +51,7 @@ void Shader::InitializeProgram(const std::string &strVertexShader, const std::st
 	cameraToClipMatrixUnif = glGetUniformLocation(program, "cameraToClipMatrix");
 
 	float fzNear = 1.0f;
-	float fzFar = 45.0f;
+	float fzFar = 100.0f;
 
 	cameraToClipMatrix[0].x = fFrustumScale;
 	cameraToClipMatrix[1].y = fFrustumScale;
@@ -184,12 +182,12 @@ void Shader::SetHeight(float var)
 {
 	glUniform1f(maskHeight, var);
 }
-GLenum Shader::GetOffset()
+GLenum Shader::GetPositionAttrib()
 {
 	return positionAttrib;
 }
 
-GLuint Shader::GetFrustumScale()
+GLuint Shader::GetColorAttrib()
 {
 	return colorAttrib;
 }
