@@ -26,8 +26,6 @@ GLuint vao;
 GLuint vertexBufferObject;
 GLuint indexBufferObject;
 
-glm::mat4 cameraToClipMatrix(0.0f);
-
 const int numberOfVertices = 24;
 
 #define RED_COLOR 1.0f, 0.0f, 0.0f, 1.0f
@@ -336,34 +334,6 @@ public:
 
 	virtual ~Hierarchy(){}
 
-	void Reinit()
-	{
-		//~Hierarchy();
-		Hierarchy();
-//		posBase=glm::vec3(3.0f, -5.0f, -40.0f);
-//		angBase=-45.0f;
-//		posBaseLeft=glm::vec3(2.0f, 0.0f, 0.0f);
-//		posBaseRight=glm::vec3(-2.0f, 0.0f, 0.0f);
-//		scaleBaseZ=3.0f;
-//		angUpperArm=-33.75f;
-//		sizeUpperArm=9.0f;
-//		posLowerArm=glm::vec3(0.0f, 0.0f, 8.0f);
-//		angLowerArm=146.25f;
-//		lenLowerArm=5.0f;
-//		widthLowerArm=1.5f;
-//		posWrist=glm::vec3(0.0f, 0.0f, 5.0f);
-//		angWristRoll=0.0f;
-//		angWristPitch=67.5f;
-//		lenWrist=2.0f;
-//		widthWrist=2.0f;
-//		posLeftFinger=glm::vec3(1.0f, 0.0f, 1.0f);
-//		posRightFinger=glm::vec3(-1.0f, 0.0f, 1.0f);
-//		angFingerOpen=180.0f;
-//		lenFinger=2.0f;
-//		widthFinger=0.5f;
-//		angLowerFinger=45.0f;
-	}
-
 	void Draw()
 	{
 		MatrixStack modelToCameraStack;
@@ -606,7 +576,7 @@ void init(void)
 	InitializeVertexBuffer();
 	// GLSL Moving triangle END
 
-	g_armature.Reinit();
+//	g_armature.Reinit();
 
 //	glClearColor (0.0, 0.0, 0.0, 0.0);
 //	glShadeModel(GL_SMOOTH);
@@ -660,12 +630,14 @@ void display(void)
 
 void reshape (int w, int h)
 {
-	if ( w < h )
-		glViewport (0, 0, (GLsizei) w, (GLsizei) w);
-	else
-		glViewport (0, 0, (GLsizei) h, (GLsizei) h);
-//	glMatrixMode (GL_PROJECTION);
-//	glLoadIdentity ();
+	(shader1.GetCameraToClipMx())[0].x = shader1.fFrustumScale * (h / (float)w);
+	(shader1.GetCameraToClipMx())[1].y = shader1.fFrustumScale;
+
+	shader1.Use(true);
+	glUniformMatrix4fv(shader1.GetModelToCameraMatrixUnif(), 1, GL_FALSE, glm::value_ptr(shader1.GetCameraToClipMx()));
+	shader1.Use(false);
+
+	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
 }
 
 //Called whenever a key on the keyboard was pressed.
@@ -674,18 +646,18 @@ void reshape (int w, int h)
 //exit the program.
 void keyboard (unsigned char key,int /*x*/,int /*y*/)
 {
-	static bool bDepthClampingActive = false;
+//	static bool bDepthClampingActive = false;
 	switch (key)
 		{
 		case 27:
 			glutLeaveMainLoop();
 			return;
 			break;
-		case 32:
-			if(bDepthClampingActive)
-				glDisable(GL_DEPTH_CLAMP);
-			else
-				glEnable(GL_DEPTH_CLAMP);
+//		case 32:
+//			if(bDepthClampingActive)
+//				glDisable(GL_DEPTH_CLAMP);
+//			else
+//				glEnable(GL_DEPTH_CLAMP);
 
 //			bDepthClampingActive = !bDepthClampingActive;
 //			break;
@@ -701,7 +673,7 @@ void keyboard (unsigned char key,int /*x*/,int /*y*/)
 		case 'c': g_armature.AdjWristRoll(false); break;
 		case 'q': g_armature.AdjFingerOpen(true); break;
 		case 'e': g_armature.AdjFingerOpen(false); break;
-//		case 32: g_armature.WritePose(); break;
+		case 32: g_armature.WritePose(); break;
 		}
 
 }
